@@ -4,10 +4,12 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class BaseModel:
     """ A class that defines all common attributes/methods
         for other classes:"""
     def __init__(self, *args, **kwargs):
+        """ Initializes the BaseModel class """
         tform = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
         self.created_at = datetime.now()
@@ -21,11 +23,14 @@ class BaseModel:
                     self.__dict__[k] = datetime.now().strptime(v, tform)
                 else:
                     self.__dict__[k] = v
+        else:
+            models.storage.new(self)
 
     def save(self):
         """ Updates the public instance attribute updated_at
             with the current datetime """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """ Returns a dictionary containing all keys/values
@@ -39,4 +44,4 @@ class BaseModel:
     def __str__(self):
         """ Returns the description of the BaseModel class"""
         return "[{}] ({}) {}".format(self.__class__.__name__,
-                self.id, self.__dict__)
+                                     self.id, self.__dict__)
