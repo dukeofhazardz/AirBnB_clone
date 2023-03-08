@@ -2,6 +2,7 @@
 """ A FileStorage class """
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -37,11 +38,10 @@ class FileStorage:
             (__file_path) exists ; otherwise, do nothing. If the file doesn’t
             exist, no exception should be raised) """
         try:
-            with open(self.__file_path, 'r') as jsonf:
-                obj_dict = json.load(jsonf)
-                for obj in obj_dict.values():
-                    cls_name = obj["__class__"]
-                    del obj["__class__"]
-                    self.new(eval(cls_name)(**obj))
+            with open(self.__file_path) as jsonf:
+                data = json.load(jsonf)
+                for key, obj in data.items():
+                    newObj = eval(obj["__class__"])(**obj)
+                    self.__objects[key] = newObj
         except FileNotFoundError:
             return

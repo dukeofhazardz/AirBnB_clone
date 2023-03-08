@@ -14,8 +14,6 @@ class BaseModel:
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        self.name = ""
-        self.my_number = None
 
         if kwargs:
             for k, v in kwargs.items():
@@ -40,6 +38,10 @@ class BaseModel:
         rdict["updated_at"] = self.updated_at.isoformat()
         rdict["__class__"] = self.__class__.__name__
         return rdict
+
+    def __repr__(self):
+        """returns string function"""
+        return self.__str__()
 
     def __str__(self):
         """ Returns the description of the BaseModel class"""
