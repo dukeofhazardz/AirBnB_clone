@@ -4,6 +4,7 @@ import cmd
 from models.base_model import BaseModel
 from models import storage
 from shlex import split
+from shlex import shlex
 from models.user import User
 from models.state import State
 from models.city import City
@@ -77,10 +78,10 @@ class HBNBCommand(cmd.Cmd):
             if line not in self.classes:
                 print("** class doesn't exist **")
             else:
-                print(["{}".format(obj) for obj in storage.all().values()
+                print([obj for obj in storage.all().values()
                       if line == type(obj).__name__])
             return
-        print(["{}".format(obj) for obj in storage.all().values()])
+        print([obj for obj in storage.all().values()])
 
     def do_update(self, line):
         """Updates an instance based on the class name
@@ -125,6 +126,60 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """Exit the program\n"""
         return True
+
+    def stripper(self, line):
+        """Strips the line"""
+        newstring = line[line.find("(")+1:line.rfind(")")]
+        newstring = shlex(newstring, posix=True)
+        newstring.whitespace += ','
+        newstring.whitespace_split = True
+        return list(newstring)
+
+    def dict_strip(self, line):
+        """Tries to find a dictionary while stripping"""
+        newstring = line[line.find("(")+1:line.rfind(")")]
+        try:
+            new_dict = newstring[newstring.find("{")+1:newstring.rfind("}")]
+            return eval("{" + new_dict + "}")
+        except NameError:
+            return None
+
+    def default(self, line):
+        """Handling default arguments"""
+        subArgs = self.stripper(line)
+        strings = list(shlex(line, posix=True))
+        if strings[0] not in HBNBCommand.classes:
+            print("*** Unknown syntax: {}".format(line))
+            return
+        if strings[2] == "all":
+            self.do_all(strings[0])
+        elif strings[2] == "count":
+            count = 0
+            for obj in storage.all().values():
+                if strings[0] == type(obj).__name__:
+                    count += 1
+            print(count)
+            return
+        elif strings[2] == "show":
+            key = strings[0] + " " + subArgs[0]
+            self.do_show(key)
+        elif strings[2] == "destroy":
+            key = strings[0] + " " + subArgs[0]
+            self.do_destroy(key)
+        elif strings[2] == "update":
+            new_dict = self.dict_strip(line)
+            if type(new_dict) is dict:
+                for key, val in new_dict.items():
+                    keyVal = strings[0] + " " + subArgs[0]
+                    self.do_update(keyVal + ' "{}" "{}"'.format(key, val))
+            else:
+                key = strings[0]
+                for arg in subArgs:
+                    key = key + " " + '"{}"'.format(arg)
+                self.do_update(key)
+        else:
+            print("*** Unknown syntax: {}".format(line))
+            return
 
 
 if __name__ == '__main__':
