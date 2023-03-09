@@ -1,7 +1,7 @@
 # HolbertonBnB
 ## _An airbnb clone_
 
-[![](https://github.com/dukeofhazardz/AirBnB_clone/blob/master/assets/HolbertonBNB.png)]
+![](https://github.com/dukeofhazardz/AirBnB_clone/blob/master/assets/HolbertonBNB.png)
 
 ## Description 🏘️
 HolbertonBnB is a complete web application, integrating database storage, a back-end API, and front-end interfacing in a clone of AirBnB.
@@ -219,5 +219,5 @@ Alternatively, you can specify a single test file to run at a time:
 $ python3 unittest -m tests/test_console.py
 ```
 ## Authors ✒️
-- Nnaemeka Daniel John [dukeofhazardz](www.github.com/dukeofhazardz)
-- Ehujuo Chibueze [E-buez](www.github.com/E-buez)
+- Nnaemeka Daniel John <[dukeofhazardz](www.github.com/dukeofhazardz)>
+- Ehujuo Chibueze <[E-buez](www.github.com/E-buez)>
