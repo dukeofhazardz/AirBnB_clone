@@ -1,19 +1,14 @@
-#!/usr/bin/python3
-from models import storage
+#!/usr/bin/env python3
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
 
-print("-- Create a new User --")
-my_user = User()
-my_user.first_name = "Betty"
-my_user.last_name = "Bar"
-my_user.email = "airbnb@mail.com"
-my_user.password = "root"
-print(my_user)
 
-print("-- Create a new User 2 --")
-my_user2 = User()
-my_user2.first_name = "John"
-my_user2.email = "airbnb2@mail.com"
-my_user2.password = "root"
-print(my_user2)
+user1 = User()
+user1.first_name = "Daniel"
+user1.last_name = "John"
+user1.email = "airbnb@mail.com"
+user1.password = "root"
+user1 = State()
+user1.name = "Lagos"
+print(user1)

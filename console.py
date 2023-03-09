@@ -5,12 +5,18 @@ from models.base_model import BaseModel
 from models import storage
 from shlex import split
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """The Holberton Airbnb command line"""
     prompt = '(hbnb) '
-    classes = {"BaseModel", "FileStorage", "User"}
+    classes = {"BaseModel", "FileStorage", "User", "State",
+               "City", "Amenity", "Place", "Review"}
 
     def do_create(self, line):
         """Creates a new instance of BaseModel,
@@ -105,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             setattr(storage.all()[keyValue], strings[2], eval(strings[3]))
-        except:
+        except NameError:
             setattr(storage.all()[keyValue], strings[2], strings[3])
 
     def emptyline(self):
