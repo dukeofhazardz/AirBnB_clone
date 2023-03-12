@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ A Review class """
 from models.base_model import BaseModel
 
