@@ -35,7 +35,7 @@ class FileStorage:
         json_data = {}
         for k, v in self.__objects.items():
             json_data[k] = v.to_dict()
-        with open(self.__file_path,'w') as jsonf:
+        with open(self.__file_path, 'w') as jsonf:
             json.dump(json_data, jsonf)
 
     def reload(self):

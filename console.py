@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             setattr(storage.all()[keyValue], strings[2], eval(strings[3]))
-        except NameError:
+        except Exception:
             setattr(storage.all()[keyValue], strings[2], strings[3])
 
     def emptyline(self):
@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             new_dict = newstring[newstring.find("{")+1:newstring.rfind("}")]
             return eval("{" + new_dict + "}")
-        except NameError:
+        except Exception:
             return None
 
     def default(self, line):
@@ -167,12 +167,13 @@ class HBNBCommand(cmd.Cmd):
             key = strings[0] + " " + subArgs[0]
             self.do_destroy(key)
         elif strings[2] == "update":
-            new_dict = self.dict_strip(line)
-            if type(new_dict) is dict:
-                for key, val in new_dict.items():
-                    keyVal = strings[0] + " " + subArgs[0]
-                    self.do_update(keyVal + ' "{}" "{}"'.format(key, val))
-            else:
+            try:
+                new_dict = self.dict_strip(line)
+                if type(new_dict(line)) is dict:
+                    for key, val in new_dict.items():
+                        keyVal = strings[0] + " " + subArgs[0]
+                        self.do_update(keyVal + ' "{}" "{}"'.format(key, val))
+            except Exception:
                 key = strings[0]
                 for arg in subArgs:
                     key = key + " " + '"{}"'.format(arg)
