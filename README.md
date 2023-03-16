@@ -157,7 +157,7 @@ c3-f4bf-425e-b1d4-165f52c6ff81) {'updated_at': datetime.datetime(2019, 2, 17, 2
 ), 'id': 'fce2124c-8537-489b-956e-22da455cbee8'}"]
 (hbnb)
 ```
-4. **count**
+5. **count**
     - Usage: `count <class>` or `<class>.count()`
 
 Retrieves the number of instances of a given class.
@@ -176,7 +176,7 @@ aa229cbb-5b19-4c32-8562-f90a3437d301
 1
 (hbnb) 
 ```
-4. **update**
+6. **update**
     - Usage: `update <class> <id> <attribute name> "<attribute value>"` or `<class>.update(<id>, <attribute name>, <attribute value>)` or `<class>.update( <id>, <attribute dictionary>)`.
 
 Updates a class instance based on a given `id` with a given key/value attribute pair or dictionary of attribute pairs. If `update` is called with a single key/value attribute pair, only "simple" attributes can be updated (ie. not `id`, `created_at`, `and updated_at`). However, any attribute can be updated by providing a dictionary.
